@@ -49,7 +49,7 @@ public class Domineering {
                 int row = INPUT.nextInt();
                 System.out.print("Column(0-7): ");
                 int column = INPUT.nextInt();
-                while(!isMoveValid(row, column)){
+                while(!isMoveValid(row, column, player)){
                     System.out.print("Row(0-7): ");
                     row = INPUT.nextInt();
                     System.out.print("Column(0-7): ");
@@ -88,24 +88,28 @@ public class Domineering {
         }
         return false;
     }
-    public boolean isMoveValid(int row, int column){
-            int r,c; //for checking overlaps
+
+    /** only checking for one side of domino the offset horizontal = right point will still over lap
+     *  vice versa vertical bottom point will stll overlap */
+    public boolean isMoveValid(int row, int column, boolean player){
+        int rowOffset = 0;
+        int columnOffset = 0;
+        if (player == HORIZONTAL){
+            columnOffset = 1;
+        }else{
+            rowOffset = 1;
+        }
              //checks if move is on the board
-            if (row < 0 || row > 7 || column < 0 || column > 7)
+            if (row < 0 || row > 7 || row + rowOffset < 0 || row + rowOffset > 7 || column < 0 || column > 7|| column + columnOffset < 0 || column + columnOffset > 7)
             {
                 System.out.println("Invalid move");
                 return false;
-            }else if (row > 0 || row < 7 || column > 0 || column < 7){//check for overlap
-                for(r = 0; r < 8; r++) {
-                    for(c = 0; c < 8; c++) {
-                        if(squares[r][c]){
+                //check if move overlaps a placed domino
+            }else if (squares[row][column]  || squares[row + rowOffset][column + columnOffset]){
                             System.out.println("Invalid move ovarlaps Dominos!");
                             return false;
-                        }
-                    }
-                 } return true;
-                }else{return true;}
-            }//ismovevalid
+                        }else{return true;}
+            }
         }
            
 
