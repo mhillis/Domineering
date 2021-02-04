@@ -1,3 +1,13 @@
+
+/**
+ * 
+ * 
+ * user can still cause error by entering a not interger for row and column
+ * (easy fix)
+ * 
+ * 
+ * 
+ */
 public class Domineering {
     //for reading from console
     public static final java.util.Scanner INPUT = new java.util.Scanner(System.in);
@@ -45,8 +55,24 @@ public class Domineering {
                 System.out.println("No legal moves -- YOU LOSE!");
                 return;
             }
+            /** NEED TO CHECK IF USER ACTUALLY ENTERS AN INT 
+             * 
+             * do {
+                  try {
+                      System.out.print("Enter the number of students: ");
+                      students = input.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.print("Invalid number of students. ");
+                }
+                input.nextLine(); // clears the buffer
+                } while (students <= 0);
+                
+            */
+              
                 System.out.print("Row(0-7): ");
                 int row = INPUT.nextInt();
+             
+            
                 System.out.print("Column(0-7): ");
                 int column = INPUT.nextInt();
                 while(!isMoveValid(row, column, player)){
@@ -102,7 +128,7 @@ public class Domineering {
              //checks if move is on the board
             if (row < 0 || row > 7 || row + rowOffset < 0 || row + rowOffset > 7 || column < 0 || column > 7|| column + columnOffset < 0 || column + columnOffset > 7)
             {
-                System.out.println("Invalid move");
+                System.out.println("Invalid move attempted to place domino off board");
                 return false;
                 //check if move overlaps a placed domino
             }else if (squares[row][column]  || squares[row + rowOffset][column + columnOffset]){
@@ -110,6 +136,7 @@ public class Domineering {
                             return false;
                         }else{return true;}
             }
+
         }
            
 
